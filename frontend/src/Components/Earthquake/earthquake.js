@@ -1,62 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-// import logo from './logo.svg';
-import Header from '../Layout/header.js'
-// import './App.css';
-import { BASE_URL } from '../../apiConfig'; // Import the BASE_URL
+import { useState, useEffect } from "react";
+import Header from '../Layout/header'
+import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom'
+import { getToken } from "../../utils/helpers";
 
-function App() {
+const Earthquake = () => {
   const [earthquakes, setEarthquakes] = useState([]);
-  const currentDate = new Date().toISOString().split('T')[0]; // Get current date in "YYYY-MM-DD" format
+  const [error, setError] = useState('');
 
-  useEffect(() => {
-    // Function to fetch earthquake data
-    const fetchEarthquakeData = async () => {
-      try {
-        // Make a GET request to the USGS API
-        const response = await axios.get(`https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2024-01-01&endtime=${currentDate}&minmagnitude=4.5`);
-  
-        // Extract earthquake data from the response
-        const allEarthquakes = response.data.features;
-  
-        // Filter earthquakes to include only those in the Philippines
-        const philippinesEarthquakes = allEarthquakes.filter((earthquake) => {
-          // Check if the 'place' property is not null before applying toLowerCase
-          return earthquake.properties.place && earthquake.properties.place.toLowerCase().includes('philippines');
-        });
-  
-        // Log the earthquake data to the console
-        console.log('Earthquake Data:', philippinesEarthquakes);
-  
-        // Update the state with the filtered earthquake data
-        setEarthquakes(philippinesEarthquakes);
-      } catch (error) {
-        console.error('Error fetching earthquake data:', error.message);
-      }
-    };
-  
-    // Call the function to fetch earthquake data when the component mounts
-    fetchEarthquakeData();
-
-    // Set up interval for automatic refresh every 10 seconds
-    const refreshInterval = setInterval(() => {
-      fetchEarthquakeData();
-    }, 10000);
-
-    // Cleanup interval to avoid memory leaks
-    return () => clearInterval(refreshInterval);
-  }, [currentDate]); // Include currentDate as a dependency
-
-  // Function to send earthquake data to the backend server for saving to MongoDB
-  const saveEarthquakeDataToMongoDB = async () => {
+  const getEarthquakes = async () => {
     try {
-      // Make a POST request to your backend server using the BASE_URL
-      await axios.post(`${BASE_URL}/api/data`, earthquakes);
-      console.log('Earthquake data saved to MongoDB');
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${getToken()}` // Make sure you have a function getToken() defined
+        }
+      };
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/usgs/getEarthquakes`, config);
+      console.log(data);
+      setEarthquakes(data.earthquakes);
     } catch (error) {
-      console.error('Error saving earthquake data to MongoDB:', error.message);
+      setError(error.response.data.message);
     }
   };
+
+  useEffect(() => {
+    getEarthquakes();
+  }, []);
 
   return (
     <div className="App" style = {{backgroundColor: '#001F3F'}}>
@@ -81,23 +51,16 @@ function App() {
                 <th style={{ color: 'black' }}>MAGNITUDE</th>
                 <th style={{ color: 'black' }}>LOCATION</th>
                 <th style={{ color: 'black' }}>DATE</th>
+                {/* <th style={{ color: 'black' }}>COORDINATES</th> */}
               </tr>
             </thead>
             <tbody>
               {earthquakes.map((earthquake) => (
-                <tr key={earthquake.id}>
-                  <td >{earthquake.properties.mag}</td>
-                  <td>
-                    <a
-                      href={earthquake.properties.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ color: '#F5E8C7' }}
-                    >
-                      {earthquake.properties.place}
-                    </a>
-                  </td>
-                  <td style={{ color: '#F5E8C7' }}>{new Date(earthquake.properties.time).toLocaleString()}</td>
+                <tr key={earthquake._id}>
+                  <td>{earthquake.mag}</td>
+                  <td>{earthquake.place}</td>
+                  <td style={{ color: '#F5E8C7' }}>{new Date(earthquake.time).toLocaleString()}</td>
+                  {/* <td>{earthquake.coordinates.join(', ')}</td> */}
                 </tr>
               ))}
             </tbody>
@@ -105,15 +68,13 @@ function App() {
         </div>
         <br/>  
         <br/>   
-        <br/>         
-        {/* Button to store fetched data to database */}
-        {/* <button onClick={saveEarthquakeDataToMongoDB}>Store Data in Database</button> */}
+        <br/>
       
     </div>
   );
 }
 
-export default App;
+export default Earthquake;
 
 const styles = `
   @charset "UTF-8";
