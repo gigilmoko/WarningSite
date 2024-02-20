@@ -43,42 +43,41 @@ const Weather = () => {
       <br />
       <h1 style={{ color: '#F5E8C7' }}>Taguig Weather Forecast</h1>
       <br />
-      {/* If forecast is not undefined, display results from API */}
       {weather.length > 0 ? (
-        <table className="container">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Average Temperature (°C)</th>
-              <th>Temperature Range (°C)</th>
-              <th>Description</th>
-              <th>Wind Speed (m/s)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* Display the weather data */}
-            {weather.map((data, index) => {
-              // Convert timestamp to Date
-              const date = new Date(data.timestamp);
-              return (
-                <tr key={index}>
-                  {/* Date */}
-                  <td>{date.toLocaleDateString()}</td>
-                  {/* Temperature */}
-                  <td>{data.temperature}</td>
-                  <td>{`${data.tempMin} - ${data.tempMax}`}</td>
-                  {/* Description */}
-                  <td>{data.weatherDescription}</td>
-                  {/* Wind Speed */}
-                  <td>{data.windSpeed}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      ) : (
-        "Loading..."
-      )}
+  <table className="container">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Average Temperature (°C)</th>
+        <th>Temperature Range (°C)</th>
+        <th>Description</th>
+        <th>Wind Speed (m/s)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {/* Display the weather data */}
+      {weather.map((data, index) => {
+        // Convert timestamp to Date
+        const date = new Date(data.timestamp);
+        return (
+          <tr key={index}>
+            {/* Date */}
+            <td>{date.toLocaleDateString()}</td>
+            {/* Temperature */}
+            <td>{data.temperature}</td>
+            <td>{`${data.tempMin} - ${data.tempMax}`}</td>
+            {/* Description */}
+            <td>{data.weatherDescription}</td>
+            {/* Wind Speed */}
+            <td>{data.windSpeed}</td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+) : (
+  "Loading..."
+)}
       <br/>   
       <br/>   
       <br/>  

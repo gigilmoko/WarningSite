@@ -49,7 +49,7 @@ db.once('open', async () => {
     
     // Define routes
     app.use('/usgs', usgsRoutes);
-    app.use('/api/v1', weatherRoutes);
+    app.use('/api', weatherRoutes);
     app.use('/api', auth);
 
     // Start the Express server
