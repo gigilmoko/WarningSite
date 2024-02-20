@@ -1,37 +1,34 @@
 // import "./App.css";
 import { useState, useEffect } from "react";
 import Header from '../Layout/header'
-// import Bg from './bg.js'
+import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom'
+import { getToken } from "../../utils/helpers";
 
-const api = {
-  key: "d6536e139981446b8a734cd33ee9b21e",
-  base: "https://api.openweathermap.org/data/2.5/",
-};
+const Weather = () => {
+  const [weather, setWeather] = useState([]);
+  const [error, setError] = useState('');
 
-function App() {
-  const [forecast, setForecast] = useState([]);
+  const getWeather = async () => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${getToken()}` // Make sure you have a function getToken() defined
+        }
+      };
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/getWeather`, config);
+      console.log(data);
+      setWeather(data.weathers);
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
 
   useEffect(() => {
-    // Set the city to "Taguig" by default
-    const defaultCity = "Taguig";
+    getWeather();
+  }, []);
 
-    // Make a fetch call to the Open Weather Map API for 7-day forecast.
-    fetch(`${api.base}forecast?q=${defaultCity}&units=metric&APPID=${api.key}`)
-      .then((res) => res.json())
-      .then((result) => {
-        console.log("Fetched Data:", result);
-
-        // Extract one data point per day
-        const dailyForecast = result.list.filter((data) =>
-          data.dt_txt.includes("12:00:00")
-        );
-
-        setForecast(dailyForecast);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []); // Empty dependency array to ensure it runs only once when the component mounts
 
   return (
     <div className="App" style={{ backgroundColor: '#001F3F' }}>
@@ -47,7 +44,7 @@ function App() {
       <h1 style={{ color: '#F5E8C7' }}>Taguig Weather Forecast</h1>
       <br />
       {/* If forecast is not undefined, display results from API */}
-      {forecast.length > 0 ? (
+      {weather.length > 0 ? (
         <table className="container">
           <thead>
             <tr>
@@ -59,23 +56,24 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {/* Display the forecast data */}
-            {forecast.map((data, index) => (
-              <tr key={index}>
-                {/* Date */}
-                <td>{data.dt_txt}</td>
-  
-                {/* Temperature */}
-                <td>{data.main.temp}</td>
-                <td>{data.main.temp_min} - {data.main.temp_max}</td>
-  
-                {/* Description */}
-                <td>{data.weather[0].description}</td>
-  
-                {/* Wind Speed */}
-                <td>{data.wind.speed}</td>
-              </tr>
-            ))}
+            {/* Display the weather data */}
+            {weather.map((data, index) => {
+              // Convert timestamp to Date
+              const date = new Date(data.timestamp);
+              return (
+                <tr key={index}>
+                  {/* Date */}
+                  <td>{date.toLocaleDateString()}</td>
+                  {/* Temperature */}
+                  <td>{data.temperature}</td>
+                  <td>{`${data.tempMin} - ${data.tempMax}`}</td>
+                  {/* Description */}
+                  <td>{data.weatherDescription}</td>
+                  {/* Wind Speed */}
+                  <td>{data.windSpeed}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       ) : (
@@ -92,7 +90,7 @@ function App() {
   );
 }
 
-export default App;
+export default Weather;
 
 const styles = `
   @charset "UTF-8";
