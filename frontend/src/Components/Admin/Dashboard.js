@@ -2,232 +2,29 @@ import React, { useEffect } from 'react';
 import '../../assets/css/owl.carousel.min.css'
 import '../../assets/css/bootstrap2.min.css'
 import '../../assets/css/dashboardstyle.css'
-import LogoImage from '../../assets/systempics/logo3.png'
 
+import Helmeth from '../Layout/adminhelmet.js'
+import Sidebar from '../Layout/adminsidebar.js'
+import HeaderNavbar from '../Layout/adminheader.js'
 const Dashboard = () => {
  
   return (
+    
     <div class = "custom-container">
-    <meta charSet="utf-8" />
-   
-    {/* Favicon */}
-    <link href="img/favicon.ico" rel="icon" />
-    {/* Google Web Fonts */}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
-      rel="stylesheet"
-    />
-    {/* Icon Font Stylesheet */}
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    {/* Libraries Stylesheet */}
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
-    <link
-      href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
-      rel="stylesheet"
-    />
-    {/* Customized Bootstrap Stylesheet */}
-    {/* <link href="css/bootstrap.min.css" rel="stylesheet" /> */}
-    {/* Template Stylesheet */}
-    {/* <link href="css/style.css" rel="stylesheet" /> */}
+      <Helmeth/>
     <div className="container-fluid position-relative d-flex p-0">
       {/* Spinner Start */}
      
       {/* Spinner End */}
       {/* Sidebar Start */}
       <div className="sidebar pe-4 pb-3">
-      <nav className="navbar bg-secondary navbar-dark" style={{ height: '96vh' }}>
-        
-                  <img
-                    src={LogoImage}
-                    alt="logo"
-                    className="brand-image"
-                    style={{ width: '80px', height: '80px', marginLeft: '70px', marginTop: '-40px' }} // Adjust the width and height as needed
-                  />
-          <div className="navbar-nav w-100" style = {{marginTop: '-100px'}}>
-                  
-            <a href="index.html" className="nav-item nav-link active">
-              <i className="fa fa-tachometer-alt me-2" />
-              Dashboard
-            </a>
-           
-            <a href="widget.html" className="nav-item nav-link">
-              <i className="fa fa-th me-2" />
-              Widgets
-            </a>
-            <a href="form.html" className="nav-item nav-link">
-              <i className="fa fa-keyboard me-2" />
-              Forms
-            </a>
-            <a href="table.html" className="nav-item nav-link">
-              <i className="fa fa-table me-2" />
-              Tables
-            </a>
-            <a href="chart.html" className="nav-item nav-link">
-              <i className="fa fa-chart-bar me-2" />
-              Charts
-            </a>
-            <div className="nav-item dropdown">
-              <a
-                href="#"
-                className="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown"
-              >
-                <i className="far fa-file-alt me-2" />
-                Pages
-              </a>
-              <div className="dropdown-menu bg-transparent border-0">
-                <a href="signin.html" className="dropdown-item">
-                  Sign In
-                </a>
-                <a href="signup.html" className="dropdown-item">
-                  Sign Up
-                </a>
-                <a href="404.html" className="dropdown-item">
-                  404 Error
-                </a>
-                <a href="blank.html" className="dropdown-item">
-                  Blank Page
-                </a>
-               
-                
-              </div>
-            </div>
-          </div>
-        </nav>
+      <Sidebar/>
       </div>
       {/* Sidebar End */}
       {/* Content Start */}
       <div className="content" >
         {/* Navbar Start */}
-        <nav className="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0 ">
-          <a href="index.html" className="navbar-brand d-flex d-lg-none me-4">
-            <h2 className="text-primary mb-0">
-              <i className="fa fa-user-edit" />
-            </h2>
-          </a>
-          
-          
-          <div className="navbar-nav align-items-center ms-auto" >
-            <div className="nav-item dropdown">
-            
-              <div className="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                <a href="#" className="dropdown-item">
-                  <div className="d-flex align-items-center">
-                    <img
-                      className="rounded-circle"
-                      src="img/user.jpg"
-                      alt=""
-                      style={{ width: 40, height: 40 }}
-                    />
-                    <div className="ms-2">
-                      <h6 className="fw-normal mb-0">Jhon send you a message</h6>
-                      <small>15 minutes ago</small>
-                    </div>
-                  </div>
-                </a>
-                <hr className="dropdown-divider" />
-                <a href="#" className="dropdown-item">
-                  <div className="d-flex align-items-center">
-                    <img
-                      className="rounded-circle"
-                      src="img/user.jpg"
-                      alt=""
-                      style={{ width: 40, height: 40 }}
-                    />
-                    <div className="ms-2">
-                      <h6 className="fw-normal mb-0">Jhon send you a message</h6>
-                      <small>15 minutes ago</small>
-                    </div>
-                  </div>
-                </a>
-                <hr className="dropdown-divider" />
-                <a href="#" className="dropdown-item">
-                  <div className="d-flex align-items-center">
-                    <img
-                      className="rounded-circle"
-                      src="img/user.jpg"
-                      alt=""
-                      style={{ width: 40, height: 40 }}
-                    />
-                    <div className="ms-2">
-                      <h6 className="fw-normal mb-0">Jhon send you a message</h6>
-                      <small>15 minutes ago</small>
-                    </div>
-                  </div>
-                </a>
-                <hr className="dropdown-divider" />
-                <a href="#" className="dropdown-item text-center">
-                  See all message
-                </a>
-              </div>
-            </div>
-            <div className="nav-item dropdown">
-              <a
-                href="#"
-                className="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown"
-              >
-                <i className="fa fa-bell me-lg-2" />
-                <span className="d-none d-lg-inline-flex">Notificatin</span>
-              </a>
-              <div className="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                <a href="#" className="dropdown-item">
-                  <h6 className="fw-normal mb-0">Profile updated</h6>
-                  <small>15 minutes ago</small>
-                </a>
-                <hr className="dropdown-divider" />
-                <a href="#" className="dropdown-item">
-                  <h6 className="fw-normal mb-0">New user added</h6>
-                  <small>15 minutes ago</small>
-                </a>
-                <hr className="dropdown-divider" />
-                <a href="#" className="dropdown-item">
-                  <h6 className="fw-normal mb-0">Password changed</h6>
-                  <small>15 minutes ago</small>
-                </a>
-                <hr className="dropdown-divider" />
-                <a href="#" className="dropdown-item text-center">
-                  See all notifications
-                </a>
-              </div>
-            </div>
-            <div className="nav-item dropdown">
-              <a
-                href="#"
-                className="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown"
-              >
-                <img
-                  className="rounded-circle me-lg-2"
-                  src="img/user.jpg"
-                  alt=""
-                  style={{ width: 40, height: 40 }}
-                />
-                <span className="d-none d-lg-inline-flex">John Doe</span>
-              </a>
-              <div className="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                <a href="#" className="dropdown-item">
-                  My Profile
-                </a>
-                <a href="#" className="dropdown-item">
-                  Settings
-                </a>
-                <a href="#" className="dropdown-item">
-                  Log Out
-                </a>
-              </div>
-            </div>
-          </div>
-        </nav>
+        <HeaderNavbar/>
         {/* Navbar End */}
         {/* Sale & Revenue Start */}
         <div className="container-fluid pt-4 px-4">

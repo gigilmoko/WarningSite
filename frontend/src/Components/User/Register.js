@@ -53,7 +53,7 @@ export default function Register() {
   };
 
   return (
-    <div>
+    <div style = {{backgroundColor: '#001F3F'}}>
       <form onSubmit={handleSubmit}>
         <label>name</label>
         <input

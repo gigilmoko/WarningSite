@@ -41,9 +41,9 @@ export default function Login() {
 
     };
 return(
-    <>
+    <div style = {{backgroundColor: '#001F3F'}}>
         <form onSubmit={handleSubmit} >
-            <div className="col-span-6">
+            <div className="col-span-6" >
             <label
                 htmlFor="Email"
             >
@@ -89,6 +89,6 @@ return(
                 </p>
             </div>
         </form>
-    </>
+    </div>
 )
 }
